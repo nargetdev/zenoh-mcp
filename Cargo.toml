@@ -1,0 +1,23 @@
+[package]
+name = "zenoh-mcp"
+version = "0.1.0"
+edition = "2021"
+description = "Stdio MCP server exposing Zenoh debugging tools (get/put/subscribe/admin) with ROS2 CDR decoding. Pinned to zenoh 1.8.0 for ROS2/rmw_zenoh compatibility."
+license = "MIT"
+repository = "https://github.com/nargetdev/zenoh-mcp"
+
+[[bin]]
+name = "zenoh-mcp"
+path = "src/main.rs"
+
+[dependencies]
+# Pinned to match the native router + ROS2 Kilted rmw_zenoh on the wire.
+zenoh = "=1.8.0"
+rmcp = { version = "1.7", features = ["server", "macros", "transport-io"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "signal"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+cdr = "0.2"
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
