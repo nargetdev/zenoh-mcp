@@ -8,6 +8,8 @@ to JSON** automatically.
 Pinned to **`zenoh = 1.8.0`** so it is wire-compatible with a 1.8.0 router and with
 ROS2 Kilted's `rmw_zenoh_cpp`. No Python, no pip — a single static Rust binary.
 
+📖 **Docs & spec:** https://nargetdev.github.io/zenoh-mcp/ (source in [`site/`](site/))
+
 > Built because, as of mid-2026, there is no common/mature Zenoh MCP server.
 > The only comparable effort is the (unreleased, dormant) `gabrik/zenoh-plugin-mcp`,
 > a heavyweight `zenohd` plugin over HTTP/SSE. This is the opposite: a lightweight

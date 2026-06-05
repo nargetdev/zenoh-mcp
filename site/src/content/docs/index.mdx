@@ -1,0 +1,57 @@
+---
+title: zenoh-mcp
+description: Stdio MCP server with Zenoh debugging tools and ROS2 CDR decoding, pinned to zenoh 1.8.0.
+template: splash
+hero:
+  tagline: Hands-on Zenoh debugging tools for AI agents — query, publish, tap topics, and discover keys, with ROS2 payloads decoded to JSON.
+  actions:
+    - text: Getting started
+      link: /zenoh-mcp/guides/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/nargetdev/zenoh-mcp
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## What it is
+
+**zenoh-mcp** is a single static Rust binary that speaks the [Model Context
+Protocol](https://modelcontextprotocol.io) over stdio and exposes a small set of
+[Zenoh](https://zenoh.io) operations as tools an agent can call. It is built for
+**debugging an existing Zenoh network** — point it at a router and ask "what's on
+this topic right now?".
+
+It is pinned to **`zenoh = 1.8.0`** so it is wire-compatible with a 1.8.0 router
+and with ROS2 Kilted's `rmw_zenoh_cpp`. No Python, no pip — just a binary.
+
+<CardGrid stagger>
+	<Card title="Five debugging tools" icon="puzzle">
+		`zenoh_info`, `zenoh_get`, `zenoh_put`, `zenoh_subscribe`, and
+		`zenoh_list_keys` — reachability, queries, publishing, topic taps, and
+		discovery.
+	</Card>
+	<Card title="ROS2 decoding built in" icon="seti:rust">
+		`rmw_zenoh` CDR payloads are decoded to JSON automatically using typed
+		structs — the same output as `ros2 topic echo`.
+	</Card>
+	<Card title="Stateless & safe" icon="approve-check">
+		Every call opens a short-lived **client**-mode session, does one operation,
+		and closes. Safe to point at any router on the network.
+	</Card>
+	<Card title="Version-aligned" icon="setting">
+		Pinned to zenoh 1.8.0 to stay on the same wire format as the router and
+		ROS2 `rmw_zenoh`, avoiding cross-version surprises.
+	</Card>
+</CardGrid>
+
+## Why it exists
+
+As of mid-2026 there is no common, mature MCP server for Zenoh. The only
+comparable effort is the (unreleased, dormant) `gabrik/zenoh-plugin-mcp`, a
+heavyweight `zenohd` plugin served over HTTP/SSE. **zenoh-mcp** takes the opposite
+approach: a lightweight stdio tool focused on debugging, that an agent runner can
+spawn directly.
